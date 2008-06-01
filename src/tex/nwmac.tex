@@ -122,8 +122,8 @@
   \catcode`\"=\other    % fixes problem with german.sty
   \obeyspaces\Tt
 }
-\let\nwlbrace=\{
-\let\nwrbrace=\}
+%\let\nwlbrace=\{
+%\let\nwrbrace=\}
 \def\nwendquote{\relax\ifhmode\spacefactor=1000 \fi}
 {\catcode`\^^M=\active % make CR an active character
   \gdef\newlines{\catcode`\^^M=\active % make CR an active character
@@ -143,6 +143,8 @@
   \catcode`\^=7
   \catcode`\ =10
   \catcode`\^^M=5
+  \let\nwlbrace\lbrace
+  \let\nwrbrace\rbrace
   \let\{\nwlbrace
   \let\}\nwrbrace
   % bad news --- don't know what catcode to give "

@@ -1,6 +1,6 @@
 #line 24 "recognize.nw"
-static char rcsid[] = "$Id: recognize.nw,v 1.17 2002/07/17 22:47:34 nr Exp nr $";
-static char rcsname[] = "$Name: v2_10c $";
+static char rcsid[] = "$Id: recognize.nw,v 1.19 2006/04/02 16:45:17 nr Exp nr $";
+static char rcsname[] = "$Name: v2_11 $";
 #line 37 "recognize.nw"
 #include <string.h>
 #include <stdlib.h>

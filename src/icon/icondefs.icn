@@ -30,8 +30,8 @@ procedure prepass(name, arg)
 end
 #line 32 "icondefs.nw"
 procedure rcsinfo () 
-  return "$Id: icondefs.nw,v 1.11 2002/07/17 22:47:35 nr Exp nr $" ||
-         "$Name: v2_10c $"
+  return "$Id: icondefs.nw,v 1.13 2006/04/02 16:45:18 nr Exp nr $" ||
+         "$Name: v2_11 $"
 end
 #line 1 "defns.nw"
 procedure go()
@@ -72,6 +72,6 @@ procedure writedefn(defn, locl)
 end
 #line 35 "defns.nw"
 procedure rcsinfo_too () 
-  return "$Id: defns.nw,v 1.11 2002/07/17 22:47:35 nr Exp nr $" ||
-         "$Name: v2_10c $"
+  return "$Id: defns.nw,v 1.13 2006/04/02 16:45:18 nr Exp nr $" ||
+         "$Name: v2_11 $"
 end

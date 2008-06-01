@@ -1,28 +1,19 @@
-This is version 2.10c of ``noweb'', a simple, extensible
-literate-programming tool.  noweb is available via anonymous ftp from
-the Comprehensive TeX Archive Network, in directory web/noweb.  The
-``noweb home page'' at http://www.eecs.harvard.edu/~nr/noweb contains
-much helpful information including many direct pointers into the CTAN
-sites.  If you think WWW is for wussies, you can find the CTAN sites
-at ftp.ctan.org, ftp.tex.ac.uk, and ftp.dante.de.  Note that if you
-simply get 'noweb.tgz', you'll be getting a bunch of binary
-distributions that you probably don't want.  Most users will want
-either one of the binary distributions or else the source (src).
-Fanatics can check out the contrib and examples directories.
-
-The CTAN sites mirror the master directory ftp.eecs.harvard.edu:pub/nr/noweb.
-You can also get the master tar file ftp.eecs.harvard.edu:pub/nr/noweb-2.10c.tgz, 
-which contains source, contributed software, and examples, but no binaries.
+This is version 2.11 of ``noweb'', a simple, extensible literate-
+programming tool.  noweb is available by anonymous ftp from
+ftp.eecs.harvard.edu:pub/nr/noweb and by HTTP from
+http://www.eecs.harvard.edu/nr/noweb/dist.  The ftp site is mirrored
+by the Comprehensive TeX Archive Network, in directory web/noweb.
+The home page at http://www.eecs.harvard.edu/~nr/noweb contains much
+helpful information.
 
 To build noweb, change to the `src' directory and follow the
 instructions in the file INSTALL.
 
 
-WHAT'S NEW IN VERSION 2.10c
+WHAT'S NEW IN VERSION 2.11
 
-Version 2.10c fixes a stunning bug in xchunks, fixes a subtle bug in
-noweave-index, corrects a misspelling, and makes it easier to break
-pages.
+Version 2.11 fixes a surprising bug in noweb's parser and provides a
+dozen or so small improvements.
 
 
 INTRODUCTION --- WHAT IS NOWEB, ANYWAY?
@@ -232,7 +223,7 @@ send me a local postcard for my collection?  My address is:
 
 COPYRIGHT
 
-Noweb is copyright 1989-2000 by Norman Ramsey.  All rights reserved.
+Noweb is copyright 1989-2006 by Norman Ramsey.  All rights reserved.
 
 You may use and distribute noweb for any purpose, for free.  You may
 modify noweb and create derived works, provided you retain the

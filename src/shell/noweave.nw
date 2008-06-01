@@ -387,7 +387,9 @@ act a little bit like the
 The option is typically used to enable a user to put a specialized
 .I LaTeX
 .B "\\\\documentclass"
-command and other preamble material in the first documentation chunk.
+command and other preamble material in the first documentation chunk (i.e., 
+.I before
+the first @ sign).
 This option also forces trailing cross-referencing information to be emitted
 just before the final chunk, instead of at the end of the document;
 the final chunk is expected to contain

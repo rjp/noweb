@@ -3,8 +3,8 @@
 # See file COPYRIGHT for more information.
 #line 11 "totex.nw"
 procedure rcsinfo () 
-  return "$Id: totex.nw,v 1.14 2002/07/17 22:47:35 nr Exp nr $" ||
-         "$Name: v2_10c $"
+  return "$Id: totex.nw,v 1.16 2006/04/02 16:45:18 nr Exp nr $" ||
+         "$Name: v2_11 $"
 end
 global headercomment, realwrite
 procedure main(args)

@@ -1,3 +1,5 @@
+2.11: Bug fix in parsing; a dozen small repairs
+2.10: nountangle becomes a filter; multilanguage support; ...
 2.9:  Support for hyperref; many small repairs
 2.8:  LaTeX2e, support for HTML tables
 2.7:  Reads nuweb files, converts latex to HTML

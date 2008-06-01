@@ -1,10 +1,10 @@
-# Copyright 1995-2001 by Norman Ramsey.  All rights reserved.
+# Copyright 1995-2006 by Norman Ramsey.  All rights reserved.
 # See file COPYRIGHT for more information.
 #
 # Don't edit this file; you should be editing the Makefiles in the
 # src and contrib directories.
 
-VERSION=2.10c
+VERSION=2.11
 SHELL=/bin/sh
 CINAME=-Nv`echo $(VERSION) | tr . _`
 CIMSG=-f -m'standard checkin preparing to export version $(VERSION)'
@@ -38,7 +38,12 @@ tarnames: clean source nwsrcfilter DATE
 
 tar:	clean source nwsrcfilter DATE emacscheck
 	chmod +w src/Makefile
-	tar cvf - `find . ! -type d -not -name FAQ.old -print | ./nwsrcfilter` | gzip -v > ../noweb.tgz
+	rm -rf /tmp/noweb-$(VERSION)
+	mkdir /tmp/noweb-$(VERSION)
+	tar cvf - `find . ! -type d -not -name FAQ.old -print | ./nwsrcfilter` | (cd /tmp/noweb-$(VERSION) ; tar xf - )
+	(cd /tmp; tar cf - noweb-$(VERSION) ) | gzip -v > ../noweb-$(VERSION).tgz
+	rm -f ../noweb.tgz
+	(cd .. ; ln -s noweb-$(VERSION).tgz noweb.tgz)
 	chmod -w src/Makefile
 
 emacscheck:

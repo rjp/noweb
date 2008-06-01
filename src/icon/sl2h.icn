@@ -30,9 +30,9 @@ every begintab | endtab := table(unknown_env)
 every begincl  | endcl  := table()
 #line 996 "l2h.nw"
 unknown_envs := set()
-#line 1861 "l2h.nw"
+#line 1873 "l2h.nw"
 countertab := table()
-#line 1869 "l2h.nw"
+#line 1881 "l2h.nw"
 accent_name  := table()
 accent_valid := table('')
 accent_name ["`"]  := "grave"
@@ -57,7 +57,7 @@ accent_name ["c"]  := "cedil"
 accent_valid["c"]  := 'Cc'
 accent_name ["d"]  := "underdot"
 accent_name ["b"]  := "underbar"
-#line 2573 "l2h.nw"
+#line 2585 "l2h.nw"
 csfunctions := table()
 #line 668 "l2h.nw"
     
@@ -451,11 +451,13 @@ ignore("psnoisy")
 #line 980 "l2h.nw"
 cstab["begin"] := do_begin
 cstab["end"]   := do_end
-#line 1799 "l2h.nw"
+#line 1515 "l2h.nw"
+cstab["uppercase"] := Cuppercase
+#line 1811 "l2h.nw"
 cstab["contentsline"] := Ccontentsline
 #line 669 "l2h.nw"
     
-#line 2575 "l2h.nw"
+#line 2587 "l2h.nw"
 csfunctions["argblock"] := argblock
 csfunctions["argblockv"] := argblockv
 csfunctions["envblock"] := envblock
@@ -583,7 +585,7 @@ record state(mode, quotemode
 , comment
 #line 1433 "l2h.nw"
 , ifstack
-#line 1528 "l2h.nw"
+#line 1540 "l2h.nw"
 , tables
 #line 728 "l2h.nw"
                                                       )
@@ -611,7 +613,7 @@ procedure converter(mode)
 , ""
 #line 1435 "l2h.nw"
 , []
-#line 1530 "l2h.nw"
+#line 1542 "l2h.nw"
 , []
 #line 736 "l2h.nw"
                                                                       )
@@ -638,7 +640,7 @@ S.csletters := &letters
 S.comment := ""
 #line 1437 "l2h.nw"
 if *S.ifstack > 0 then S.ifstack := []  # keeps GC down
-#line 1532 "l2h.nw"
+#line 1544 "l2h.nw"
 S.tables := []
 #line 744 "l2h.nw"
   return S
@@ -1106,14 +1108,19 @@ procedure Csetif(S, cs, cl)
     error("This can't happen --- setif botch (not urgent)")
   }
 end
-#line 1513 "l2h.nw"
+#line 1510 "l2h.nw"
+procedure Cuppercase(S, cs, cl)
+  l := map(csarg(S), &lcase, &ucase) | fail
+  emit_text(S, l)
+end
+#line 1525 "l2h.nw"
 record table_info(index,	# number of this cell in the row
 		  alignment,	# the alignment of this cell 
 		  width,	# how many columns this cell will span
 		  alignments,	# default alignments for this table
 		  brace_depth,	# size of S.closes after start of cell
 		  cell_text)	# value of S.text to use to scan this cell
-#line 1537 "l2h.nw"
+#line 1549 "l2h.nw"
 procedure start_table_cell(S, text)
   local this, attributes
 
@@ -1144,11 +1151,11 @@ if /(\this).brace_depth then write(&errout, "starting table cell, ", image(this)
 push(S.closes, []) # fresh set of closing tasks
 while c := get(S.open) do
   c.proc!c.args
-#line 1563 "l2h.nw"
+#line 1575 "l2h.nw"
   emit_text(S, text)
   return
 end
-#line 1570 "l2h.nw"
+#line 1582 "l2h.nw"
 procedure ampersand(S)
   local this
   this := S.tables[1]
@@ -1157,7 +1164,7 @@ procedure ampersand(S)
 while c := get(S.closes[1]) do
   c.proc!c.args
 pop(S.closes)
-#line 1574 "l2h.nw"
+#line 1586 "l2h.nw"
   if /this then
     emit_text(S, " --- ")
   else {
@@ -1174,7 +1181,7 @@ pop(S.closes)
 ##  	 image(&subject[&pos:0]))
   return
 end
-#line 1599 "l2h.nw"
+#line 1611 "l2h.nw"
 procedure Cbackback(S, cs, cl)
   local this
   this := S.tables[1]
@@ -1193,7 +1200,7 @@ procedure Cbackback_continue(S, this)
 while c := get(S.closes[1]) do
   c.proc!c.args
 pop(S.closes)
-#line 1613 "l2h.nw"
+#line 1625 "l2h.nw"
     emit_text(S, "</td></tr>\n")
     tab(many(' \t\n'))
     if S.text ~=== start_table_cell then
@@ -1205,13 +1212,13 @@ pop(S.closes)
     this.brace_depth := *S.closes + 1 # about to open
   }
 end
-#line 1627 "l2h.nw"
+#line 1639 "l2h.nw"
 procedure Chline(S, cs, cl)
   if \S.tables[1] then return
   else emit_text(S, "<hr>")
   return
 end
-#line 1637 "l2h.nw"
+#line 1649 "l2h.nw"
 procedure Ctabular_end(S, cs, cl)
   local this
   if S.text ~=== start_table_cell | S.tables[1].index > 1 then {# row in progress
@@ -1221,7 +1228,7 @@ procedure Ctabular_end(S, cs, cl)
 while c := get(S.closes[1]) do
   c.proc!c.args
 pop(S.closes)
-#line 1642 "l2h.nw"
+#line 1654 "l2h.nw"
     emit_text(S, "</td></tr>")
   }
   if S.text === start_table_cell then # abort it
@@ -1231,7 +1238,7 @@ pop(S.closes)
 #write(&errout, "popped ", image(xxx))
   return
 end
-#line 1654 "l2h.nw"
+#line 1666 "l2h.nw"
 procedure Ctabular(S, cs, cl)
   cs_ignore(S, cs, cl, Ctabular_continue, [S])
   return
@@ -1250,14 +1257,14 @@ procedure Ctabular_continue(S)
   optwhite()
   return
 end
-#line 1677 "l2h.nw"
+#line 1689 "l2h.nw"
 procedure tabular(env, ignore)
   begintab[env] := Ctabular
   begincl[env] := ignore
   endtab[env] := Ctabular_end
   endcl[env] := ignore
 end
-#line 1686 "l2h.nw"
+#line 1698 "l2h.nw"
 procedure aligneq(a)
   return " align=\"" || a || "\""
 end
@@ -1284,7 +1291,7 @@ procedure alignments(s)
   }
   return a
 end
-#line 1713 "l2h.nw"
+#line 1725 "l2h.nw"
 procedure skip_bracket()
   if ="{" then {
     n := 1
@@ -1299,7 +1306,7 @@ procedure skip_bracket()
   }
   return
 end
-#line 1731 "l2h.nw"
+#line 1743 "l2h.nw"
 procedure Cmulticolumn(S, cs, cl)
   local this
   this := S.tables[1]
@@ -1317,7 +1324,7 @@ procedure Cspan(S, cs, cl)
   (\S.tables[1]).width +:= 1
   return
 end
-#line 1750 "l2h.nw"
+#line 1762 "l2h.nw"
 procedure Cnoalign(S, cs, cl)
   apply_args(S, finish_noalign, [S], 1)
   return
@@ -1327,12 +1334,12 @@ procedure finish_noalign(S, arg)
   return if \S.ignoring then "" else 
   accumulate_text(S, "<br>" || convert(converter("V"), "{" || arg || "}") || "<br>")
 end
-#line 1762 "l2h.nw"
+#line 1774 "l2h.nw"
 procedure auxfile(cs, ext, placeholder, header, trailer, ignore)
   cstab[cs] := Cauxfile
   csclosure[cs] := aux_cl(ext, placeholder, header, trailer, \ignore | "")
 end
-#line 1769 "l2h.nw"
+#line 1781 "l2h.nw"
 record aux_cl(ext, placeholder, header, trailer, ignore)
 
 procedure Cauxfile(S, cs, cl)
@@ -1351,20 +1358,20 @@ procedure Cauxfile(S, cs, cl)
   cs_ignore(S, cs, cl.ignore)
   if \auxfile then return
 end
-#line 1788 "l2h.nw"
+#line 1800 "l2h.nw"
 procedure basename(name)
   reverse(name) ? {
     tab(upto('.')) & ="."
     return reverse(tab(0))
   }
 end
-#line 1801 "l2h.nw"
+#line 1813 "l2h.nw"
 procedure Ctableofcontents(S, cs, cl)
   S.mode := "V"
   Cauxfile(S, cs, cl)
   set_toclevel(S)
 end
-#line 1810 "l2h.nw"
+#line 1822 "l2h.nw"
 procedure set_toclevel(S, l)
   static toclevel, initiallevel
   if /initiallevel := \l then
@@ -1383,18 +1390,18 @@ procedure set_toclevel(S, l)
   }
   return
 end
-#line 1831 "l2h.nw"
+#line 1843 "l2h.nw"
 procedure Ccontentsline(S, cs, cl) 
   local type, level
   static leveltab
   initial { 
-#line 1845 "l2h.nw"
+#line 1857 "l2h.nw"
 l := ["part", "chapter", "section", "subsection", "subsubsection", 
       "paragraph", "subparagraph"]
 leveltab := table()
 every i := 1 to *l do
   leveltab[l[i]] := i - 2  # making section level 1
-#line 1834 "l2h.nw"
+#line 1846 "l2h.nw"
                                                        }
   l := \leveltab[csarg()] | fail
   if l > \countertab["tocdepth"] then
@@ -1405,7 +1412,7 @@ every i := 1 to *l do
     after_next_open(S, after_next_close, [S, cs_ignore, [S, cs, "{"]])
   }
 end
-#line 1853 "l2h.nw"
+#line 1865 "l2h.nw"
 global countertab
 
 procedure Csetcounter(S, cs, cl)
@@ -1413,9 +1420,9 @@ procedure Csetcounter(S, cs, cl)
   (counter := csarg(), countertab[counter] := integer(csarg())) | 
 	cs_ignore(S, cs, "{{")
 end
-#line 1867 "l2h.nw"
+#line 1879 "l2h.nw"
 global accent_name, accent_valid
-#line 1898 "l2h.nw"
+#line 1910 "l2h.nw"
 procedure accent(cs)
   cstab[cs] := Caccent
 end
@@ -1430,27 +1437,27 @@ procedure Caccent(S, cs, cl)
     S.text(S, "&" || arg || accent_name[cs] || ";")
   else {
     
-#line 1916 "l2h.nw"
+#line 1928 "l2h.nw"
 /warned[cs] := set()
 if not member(warned[cs], arg) then {
   write(&errout, "Warning: Can't handle \\", cs, " with arg `", arg, "'")
   insert(warned[cs], arg)
 }
-#line 1912 "l2h.nw"
+#line 1924 "l2h.nw"
     S.text(S, arg)
   }
 end
-#line 1926 "l2h.nw"
+#line 1938 "l2h.nw"
 procedure fontchange(tex, html)
   cstab[tex] := Cfontchange
   csclosure[tex] := html
 end
-#line 1931 "l2h.nw"
+#line 1943 "l2h.nw"
 procedure Cfontchange(S, tex, html)
   S.text(S, tag(html))
   before_next_close(S, emit_text, [S, endtag(html)])
 end
-#line 1951 "l2h.nw"
+#line 1963 "l2h.nw"
 procedure ignore(cs, template)
   /template := ""
   cstab[cs] := cs_ignore
@@ -1463,7 +1470,7 @@ procedure ignoreenv(env, template)
   begincl[env] := template
   endtab[env] := do_nothing
 end
-#line 1970 "l2h.nw"
+#line 1982 "l2h.nw"
 procedure cs_ignore(S, cs, template, proc, args)
   local saved_ignore
   saved_ignore := S.ignoring
@@ -1471,7 +1478,7 @@ procedure cs_ignore(S, cs, template, proc, args)
   if type(template) == "integer" then template := repl("{", template)
   return do_ignore(S, template, saved_ignore, proc, args)
 end
-#line 1984 "l2h.nw"
+#line 1996 "l2h.nw"
 procedure do_ignore(S, template, saved_ignore, proc, args)
   if *template > 0 then
     if optwhite() & pos(0) then
@@ -1518,11 +1525,11 @@ end
 procedure ignore_til_close(S, template, saved_ignore, proc, args)
   before_next_close(S, do_ignore, [S, template, saved_ignore, proc, args])
 end
-#line 2033 "l2h.nw"
+#line 2045 "l2h.nw"
 procedure do_nothing(S, cs, cl)
   return
 end
-#line 2044 "l2h.nw"
+#line 2056 "l2h.nw"
 procedure with_upto_bracket(S, bracketed_text, proc, args)
   bracketed_text ||:= tab(upto(']') | 0)
   if pos(0) then
@@ -1534,12 +1541,12 @@ procedure with_upto_bracket(S, bracketed_text, proc, args)
   }
   return
 end    
-#line 2058 "l2h.nw"
+#line 2070 "l2h.nw"
 procedure ignore_bracket_plus(S, contents, args)
   # contents are ignored
   do_ignore!args
 end
-#line 2064 "l2h.nw"
+#line 2076 "l2h.nw"
 procedure copy_bracket_plus(S, contents, args)
   local should_ignore
   should_ignore := args[3] | fail  # saved_ignore arg to do_ignore
@@ -1547,7 +1554,7 @@ procedure copy_bracket_plus(S, contents, args)
     S.text(S, convert(converter("H"), "{" || contents || "}"))
   do_ignore!args
 end
-#line 2077 "l2h.nw"
+#line 2089 "l2h.nw"
 procedure eat_assignment(S, proc, args)
   static decimal_chars, hex_chars, oct_chars
   initial {
@@ -1577,7 +1584,7 @@ procedure eat_assignment(S, proc, args)
   undelay_newtext(S)
   (\proc)!args
 end
-#line 2107 "l2h.nw"
+#line 2119 "l2h.nw"
 procedure dimen()
   static decimal_chars
   initial decimal_chars := &digits ++ '.,'
@@ -1587,19 +1594,19 @@ procedure dimen()
            (="true", optwhite()) | &null,
            =("em"|"ex"|"pt"|"pc"|"in"|"bp"|"cm"|"mm"|"dd"|"cc"|"sp"|"mu"))
 end
-#line 2117 "l2h.nw"
+#line 2129 "l2h.nw"
 procedure glue() 
   suspend (dimen(), 
            (optwhite(), ="plus",  dimen()) | "", 
            (optwhite(), ="minus", dimen()) | "")
 end
-#line 2131 "l2h.nw"
+#line 2143 "l2h.nw"
 procedure substitution(tex, html, ignore_template)
   # ignore mode for now
   cstab[tex] := Cemit_ig
   csclosure[tex] := emit_ig_cl(html, \ignore_template | "")
 end
-#line 2139 "l2h.nw"
+#line 2151 "l2h.nw"
 record emit_ig_cl(html, template)
 
 procedure Cemit_ig(S, cs, cl)
@@ -1607,7 +1614,7 @@ procedure Cemit_ig(S, cs, cl)
   if *cl.template > 0 then 
     cs_ignore(S, cs, cl.template)
 end
-#line 2149 "l2h.nw"
+#line 2161 "l2h.nw"
 procedure activesubst(char, html, ignore_template)
   local S
   # ignore mode for now
@@ -1625,7 +1632,7 @@ procedure delete_active_char(S, char)
   S.activechars --:= char
   return
 end
-#line 2182 "l2h.nw"
+#line 2194 "l2h.nw"
 procedure envblock(env, left, right, ignore_template)
   /ignore_template := ""
   begintab[env] := Cemit_ig
@@ -1633,11 +1640,11 @@ procedure envblock(env, left, right, ignore_template)
   endtab[env] := Cemit
   endcl[env] := if /right then endtag(left) else right
 end
-#line 2191 "l2h.nw"
+#line 2203 "l2h.nw"
 procedure Cemit(S, cs, cl)
   S.text(S, cl)
 end
-#line 2203 "l2h.nw"
+#line 2215 "l2h.nw"
 record blockpair(left, right, ignore)
 
 procedure argblock(tex, html, right, ignore)
@@ -1648,12 +1655,12 @@ procedure argblock(tex, html, right, ignore)
     if /right then blockpair (tag(html),  endtag(html), ignore)
     else blockpair (html, right, ignore)
 end
-#line 2216 "l2h.nw"
+#line 2228 "l2h.nw"
 procedure argblockv(tex, html, right, ignore)
   argblock(tex, html, right, ignore)
   cstab[tex] := CblockV
 end
-#line 2221 "l2h.nw"
+#line 2233 "l2h.nw"
 procedure Cblock(S, cs, cl, done_ignoring)
   if /done_ignoring & *cl.ignore > 0 then {
     cs_ignore(S, cs, cl.ignore, Cblock, [S, cs, cl, 1])
@@ -1673,18 +1680,18 @@ procedure Cblock_continue(S, cl, title)
   S.text (S, cl.left || title || cl.right)
   return
 end
-#line 2241 "l2h.nw"
+#line 2253 "l2h.nw"
 procedure CblockV(S, cs, cl)
   S.mode := "V"
   Cblock(S, cs, cl)
   return
 end
-#line 2253 "l2h.nw"
+#line 2265 "l2h.nw"
 record macro_defn(name, arg_count, body, mode)
-#line 2257 "l2h.nw"
+#line 2269 "l2h.nw"
 record raw_arg(number)
 record converted_arg(number, mode)
-#line 2261 "l2h.nw"
+#line 2273 "l2h.nw"
 procedure expand_macro(S, macro, args)
   every a := !macro.body do 
     case type(a) of {
@@ -1696,7 +1703,7 @@ procedure expand_macro(S, macro, args)
   return
 end
 #link pushtrace
-#line 2275 "l2h.nw"
+#line 2287 "l2h.nw"
 procedure do_macro(S, macro, args_seen, current_arg, brace_depth)
   # invariant : we have an open brace
 #  write(&errout, "scanning args for macro ", macro.name)  
@@ -1748,7 +1755,7 @@ procedure do_macro(S, macro, args_seen, current_arg, brace_depth)
     before_next_newtext(S, do_macro, [S, macro, args_seen, current_arg, brace_depth])
   return
 end
-#line 2328 "l2h.nw"
+#line 2340 "l2h.nw"
 procedure Cmacro(S, cs, cl)
 #  pushtrace("MACRO")
   delay_newtext(S)
@@ -1756,7 +1763,7 @@ procedure Cmacro(S, cs, cl)
   do_macro(S, cl, [], "", 0)
   return
 end
-#line 2339 "l2h.nw"
+#line 2351 "l2h.nw"
 procedure macro(name, arg_count, body, mode)
   m := macro_defn(name, arg_count, parse_body(body), mode)
   cstab[name] := Cmacro
@@ -1787,7 +1794,7 @@ end
 procedure argnum()
   if any(&digits) then return integer(move(1)) else fail
 end
-#line 2372 "l2h.nw"
+#line 2384 "l2h.nw"
 procedure l2h_macro(name, count, body[])
   count := integer(count) |
       return error("must give # of arguments to l2h macro ", name)
@@ -1796,7 +1803,7 @@ procedure l2h_macro(name, count, body[])
   s := s[2:0] # strip leading space if any
   return macro(name, count, s)
 end
-#line 2382 "l2h.nw"
+#line 2394 "l2h.nw"
 procedure l2h_environment(env, count, body[])
   count := integer(count) |
       return error("must give # of arguments to l2h environment ", env)
@@ -1805,7 +1812,7 @@ procedure l2h_environment(env, count, body[])
   s := s[2:0] # strip leading space if any
   return begin_macro(env, count, s)
 end
-#line 2397 "l2h.nw"
+#line 2409 "l2h.nw"
 record table_closure(args, amp, open, close)
 
 procedure table_env(env, args, amp, open, close)
@@ -1816,7 +1823,7 @@ procedure table_env(env, args, amp, open, close)
   endtab[env] := Ctable_end
   endcl[env] := []
 end
-#line 2408 "l2h.nw"
+#line 2420 "l2h.nw"
 procedure Ctable(S, env, cl)
   local amp
 ##  amp := S.ampersand
@@ -1830,7 +1837,7 @@ procedure Ctable_end(S, env, cl)
 #  S.ampersand := pop(cl)
   S.text(S, \begincl[env].close)
 end
-#line 2424 "l2h.nw"
+#line 2436 "l2h.nw"
 procedure Cepsfig(S, cs, cl)
   apply_args(S, do_epsfig, [S], 1)
 end
@@ -1857,7 +1864,7 @@ procedure eqsplit(s)
   s ? (p.name := tab(upto('=')), ="=", p.value := tab(0))
   return p
 end
-#line 2452 "l2h.nw"
+#line 2464 "l2h.nw"
 procedure Cincludegraphics(S, cs, cl)
   local saved_ignore
   saved_ignore := S.ignoring
@@ -1873,7 +1880,7 @@ procedure do_includegraphics(S, arg)
   else
     emit_text(S, "<b>[</b>Ill-understood graphics<b>]</b>")
 end
-#line 2472 "l2h.nw"
+#line 2484 "l2h.nw"
 procedure let(lhs, rhs)
   cstab[lhs] := cstab[rhs]
   csclosure[lhs] := csclosure[rhs]
@@ -1889,7 +1896,7 @@ procedure letenv(lhs, rhs)
   begincl[lhs] := begincl[rhs]
   endcl[lhs] := endcl[rhs]
 end
-#line 2493 "l2h.nw"
+#line 2505 "l2h.nw"
 procedure tag(html)
    return "<" || html || ">"
 end
@@ -1897,7 +1904,7 @@ end
 procedure endtag(html)
   return "</" || html || ">"
 end
-#line 2503 "l2h.nw"
+#line 2515 "l2h.nw"
 procedure Ccomment(S)
   if *S.comment > 0 then {
     S.text(S, "<!--")
@@ -1913,18 +1920,18 @@ procedure Ccomment(S)
   S.comment := ""
   return
 end
-#line 2519 "l2h.nw"
+#line 2531 "l2h.nw"
 procedure Cparagraph(S)
   S.text(S, "<p>")
 end
-#line 2523 "l2h.nw"
+#line 2535 "l2h.nw"
 procedure Cmath(S)
   
 #line 883 "l2h.nw"
 push(S.closes, []) # fresh set of closing tasks
 while c := get(S.open) do
   c.proc!c.args
-#line 2525 "l2h.nw"
+#line 2537 "l2h.nw"
   S.text(S, "<i>")
 end
 
@@ -1935,16 +1942,16 @@ procedure Cmath_end(S)
 while c := get(S.closes[1]) do
   c.proc!c.args
 pop(S.closes)
-#line 2531 "l2h.nw"
+#line 2543 "l2h.nw"
 end
-#line 2533 "l2h.nw"
+#line 2545 "l2h.nw"
 procedure Cdisplaymath(S)
   
 #line 883 "l2h.nw"
 push(S.closes, []) # fresh set of closing tasks
 while c := get(S.open) do
   c.proc!c.args
-#line 2535 "l2h.nw"
+#line 2547 "l2h.nw"
   S.text(S, "<blockquote><i>")
 end
 
@@ -1955,9 +1962,9 @@ procedure Cdisplaymath_end(S)
 while c := get(S.closes[1]) do
   c.proc!c.args
 pop(S.closes)
-#line 2541 "l2h.nw"
+#line 2553 "l2h.nw"
 end
-#line 2543 "l2h.nw"
+#line 2555 "l2h.nw"
 procedure Cmakeatletter(S)
   S.csletters ++:= '@'
 end
@@ -1965,21 +1972,21 @@ end
 procedure Cmakeatother(S)
   S.csletters --:= '@'
 end
-#line 2553 "l2h.nw"
+#line 2565 "l2h.nw"
 procedure Ckill(S, cs, cl)
   S.the_text := ""
 end
-#line 2571 "l2h.nw"
+#line 2583 "l2h.nw"
 global csfunctions
-#line 2598 "l2h.nw"
+#line 2610 "l2h.nw"
 global dynamic_add_hack
 procedure parse_dynamic_add(S)
    if (optwhite(), =("l2h"|"sl2h"), skipwhite(), 
        p := tab(upto(' \t')), 
-#line 2615 "l2h.nw"
+#line 2627 "l2h.nw"
 ((p := \csfunctions[p]) | 
 { dynamic_warn(p); fail })
-#line 2601 "l2h.nw"
+#line 2613 "l2h.nw"
                                                                                  , 
        skipwhite(), any(~'\n')) then {
      a := []
@@ -1993,7 +2000,7 @@ procedure parse_dynamic_add(S)
      return
    }
 end
-#line 2618 "l2h.nw"
+#line 2630 "l2h.nw"
 procedure dynamic_warn(p)
   static badprocs
   initial badprocs := set()
@@ -2002,32 +2009,32 @@ procedure dynamic_warn(p)
     insert(badprocs, p)
   }
 end
-#line 2630 "l2h.nw"
+#line 2642 "l2h.nw"
 procedure optwhite()
   suspend tab(many(' \t')) | ""
 end
-#line 2635 "l2h.nw"
+#line 2647 "l2h.nw"
 procedure skipwhite()
   suspend tab(many(' \t'))
 end
-#line 2726 "l2h.nw"
+#line 2738 "l2h.nw"
 global errstatus
 procedure error(args[])
   errstatus := 1
   return write!([&errout, (\curfile || ":") | "line ", curline, ": "] ||| args)
 end
-#line 2769 "l2h.nw"
+#line 2781 "l2h.nw"
 procedure fatal(L[])
   write!(["@fatal l2h "] ||| L)
   write!([&errout, "noweb error in l2h: "] ||| L)
   exit(1)
 end
-#line 2776 "l2h.nw"
+#line 2788 "l2h.nw"
 procedure rcsinfo () 
-  return "$Id: l2h.nw,v 1.16 2002/07/17 22:47:35 nr Exp nr $" ||
-         "$Name: v2_10c $"
+  return "$Id: l2h.nw,v 1.18 2006/04/02 16:45:18 nr Exp nr $" ||
+         "$Name: v2_11 $"
 end
-#line 2735 "l2h.nw"
+#line 2747 "l2h.nw"
 global curfile, curline
 
 procedure convert_file(f)

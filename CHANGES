@@ -1,3 +1,20 @@
+CHANGES FOR VERSION 2.11 - released 6 April 2006
+Braces did not render correctly in [[<<$\{a_i\}$>>]] (Albert Reiner)
+From Kevin Quick, Windows hints and a new NOTANGLE.BAT
+Generate postscript with -P cmz for better PDF (Francky Leyn)
+Clarify for noweave -delay that the first doco chunk is before the first @
+extended xchunks with -summary argument
+Line in a code chunk opening with unclosed, unescaped << is OK (Ralf Hemmecke)
+
+UNDO ME!  Make docs2comments filter tolerate embedded @xref stuff..
+Added Windows XP help to FAQ (David Lemmon)
+Noidx now calculates labels for a code chunk using the number of preceding
+  definitions from the same @file, not the overall number
+Change wording for \noweboptions{german} (Christian Lindig)
+Need to insert \leavevmode in \sublabel so that new \@bsphack will work right
+From Yann Dirson, new filters in contrib/ydirson.
+From Fr'ed'eric Lin'e, some improvements in French translation (apologies to Moli`ere)
+
 CHANGES FOR VERSION 2.10c - released 17 Jul 2002
 
 Bug in noidx.nw caused tag NWD1 etc to be used in multiple files.

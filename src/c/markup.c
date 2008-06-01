@@ -1,6 +1,6 @@
 #line 24 "markup.nw"
-static char rcsid[] = "$Id: markup.nw,v 2.17 2002/07/17 22:47:34 nr Exp nr $";
-static char rcsname[] = "$Name: v2_10c $";
+static char rcsid[] = "$Id: markup.nw,v 2.19 2006/04/02 16:45:17 nr Exp nr $";
+static char rcsname[] = "$Name: v2_11 $";
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -62,19 +62,12 @@ char *mod_start(char *s, int mark) {
 char *mod_end(char *s, int mark) {
     return find_escaped(s,">>","@>>", mark);
 }
-#line 157 "markup.nw"
+#line 161 "markup.nw"
 int starts_code (char *line, char *filename, int lineno) {
     char *tail;
     if (mod_start(line,0) != line+2) return 0;
     tail = mod_end(line+2,0);
-    if (tail == NULL) 
-#line 179 "markup.nw"
-{
-    errorat(filename, lineno, Error, "Module name doesn't end", line);
-    return 0;
-}
-#line 162 "markup.nw"
-    if (*tail++ != '=') return 0;
+    if (tail == NULL || *tail++ != '=') return 0;
     while (isspace(*tail)) tail++;
     return (*tail == '\0');
 }
@@ -85,26 +78,26 @@ void getmodname(char *dest, int size, char *source) {
     char *q = mod_start(p,1);
 
     if (q==NULL) 
-#line 184 "markup.nw"
+#line 182 "markup.nw"
 {
     free(p);
     impossible
         ("I couldn't manage to extract a module name, but I'm sure I saw one");
 }
-#line 173 "markup.nw"
+#line 176 "markup.nw"
     if (mod_end(q,1)==NULL) 
-#line 184 "markup.nw"
+#line 182 "markup.nw"
 {
     free(p);
     impossible
         ("I couldn't manage to extract a module name, but I'm sure I saw one");
 }
-#line 174 "markup.nw"
+#line 177 "markup.nw"
     strncpy(dest,q,size-1);
     dest[size-1] = '\0';
     free(p);
 }
-#line 207 "markup.nw"
+#line 205 "markup.nw"
 char *find_escaped(register char *s, char *search, char *escape, int mark) {
     register char first = *search;
     register char first_escape = (escape != NULL ? *escape : '\0');

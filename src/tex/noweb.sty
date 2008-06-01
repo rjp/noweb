@@ -43,8 +43,8 @@
   \catcode`\"=\other    % fixes problem with german.sty
   \obeyspaces\Tt
 }
-\let\nwlbrace=\{
-\let\nwrbrace=\}
+%\let\nwlbrace=\{
+%\let\nwrbrace=\}
 \def\nwendquote{\relax\ifhmode\spacefactor=1000 \fi}
 {\catcode`\^^M=\active % make CR an active character
   \gdef\newlines{\catcode`\^^M=\active % make CR an active character
@@ -64,6 +64,8 @@
   \catcode`\^=7
   \catcode`\ =10
   \catcode`\^^M=5
+  \let\nwlbrace\lbrace
+  \let\nwrbrace\rbrace
   \let\{\nwlbrace
   \let\}\nwrbrace
   % bad news --- don't know what catcode to give "
@@ -514,6 +516,7 @@ I'll try to avoid such incompatible changes in the future.}%
 \def\@subpagepair#1#2#3\\{%
   \@ifundefined{2on#2}{{0}{#2}}{{#1}{#2}}}
 \newcommand{\sublabel}[1]{%
+  \leavevmode % needed to make \@bsphack work
   \@bsphack
   \nwblindhyperanchor{#1}%
   \if@filesw {\let\thepage\relax
@@ -860,13 +863,13 @@ I'll try to avoid such incompatible changes in the future.}%
   % never defined
 }
 \def\nwopt@frenchb{%
-  \def\@nwlangdepdef{Cette d\'efinition suit}%
+  \def\@nwlangdepdef{Suite de la d\'efinition}%
   % This definition is continued
   \def\@nwlangdepcud{Ce code est employ\'e}%
   % This code is used
   \def\@nwlangdeprtc{Morceau racine (pas employ\'e dans ce document)}%
   % Root chunk (not used in this document)
-  \def\@nwlangdepcwf{Ce code est \'ecrit aux fichier}%
+  \def\@nwlangdepcwf{Ce code est \'ecrit dans le fichier}%
   % This code is written to file
   \def\@nwlangdepchk{le morceau}%
   % chunk
@@ -876,19 +879,49 @@ I'll try to avoid such incompatible changes in the future.}%
   % in
   \def\@nwlangdepand{et}%
   % and
-  \def\@nwlangdepuss{Il emploie}%
+  \def\@nwlangdepuss{Utilise}%
   % Uses
-  \def\@nwlangdepusd{employ\'{e}}%
+  \def\@nwlangdepusd{utilis\'{e}}%
   % used
   \def\@nwlangdepnvu{jamais employ\'{e}}%
   % never used
-  \def\@nwlangdepdfs{Il d\'{e}fine}%
+  \def\@nwlangdepdfs{D\'{e}finit}%
   % Defines
   % Cannot use the accent here: \def\@nwlangdepnvd{jamais d\'{e}fini}%
   \def\@nwlangdepnvd{jamais defini}%
   % never defined
 }
 \let\nwopt@french\nwopt@frenchb
+\def\nwopt@german{%
+  \def\@nwlangdepdef{Diese Definition wird fortgesetzt}%
+  % This definition is continued
+  \def\@nwlangdepcud{Dieser Code wird benutzt}%
+  % This code is used
+  \def\@nwlangdeprtc{Hauptteil (nicht in diesem Dokument benutzt)}%
+  % Root chunk (not used in this document)
+  %\def\@nwlangdepcwf{Dieser Code schreibt man zum File}%
+  \def\@nwlangdepcwf{Dieser Code geht in Datei}%
+  % This code is written to file
+  \def\@nwlangdepchk{dem Teil}%
+  % chunk
+  %\def\@nwlangdepchks{Teils}%   
+  \def\@nwlangdepchks{den Teilen}%   
+  % chunks
+  \def\@nwlangdepin{in}%
+  % in
+  \def\@nwlangdepand{und}%
+  % and
+  \def\@nwlangdepuss{Benutzt}%
+  % Uses
+  \def\@nwlangdepusd{benutzt}%
+  % used
+  \def\@nwlangdepnvu{nicht benutzt}%
+  % never used
+  \def\@nwlangdepdfs{Definiert}%
+  % Defines
+  \def\@nwlangdepnvd{nicht definiert}%
+  % never defined
+}
 \def\nwopt@german{%
   \def\@nwlangdepdef{Diese Definition wird fortgesetzt}%
   % This definition is continued

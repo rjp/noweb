@@ -484,6 +484,6 @@ procedure fatal(L[])
 end
 #line 529 "tohtml.nw"
 procedure rcsinfo () 
-  return "$Id: tohtml.nw,v 1.15 2002/07/17 22:47:35 nr Exp nr $" ||
-         "$Name: v2_10c $"
+  return "$Id: tohtml.nw,v 1.17 2006/04/02 16:45:18 nr Exp nr $" ||
+         "$Name: v2_11 $"
 end
