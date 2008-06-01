@@ -60,10 +60,10 @@ FFOORRMMAATT OOFF NNOOWWEEBB FFIILLEESS
        code ends with three or more square brackets, _n_o_w_e_b chooses the  right-
        most pair, so that, for example, [[[[aa[[ii]]]]]] is parsed correctly.
 
-       If  double  left  and  right  angle  brackets  are not paired, they are
-       treated as literal <<<< and >>>>.  Users can force any such brackets,  even
-       paired  brackets, to be treated as literal by using a preceding at sign
-       (e.g. @@<<<<).
+       In  code,  noweb treats unpaired double left or right angle brackets as
+       literal <<<< and >>>>.  To force any such brackets, even paired brackets or
+       brackets in documentation, to be treated as literal, use a preceding at
+       sign (e.g. @@<<<<).
 
 OOPPTTIIOONNSS
        --tt     Suppress generation of a _T_e_X file.
@@ -110,7 +110,7 @@ SSEEEE AALLSSOO
        11(5):97-105, September 1994.
 
 VVEERRSSIIOONN
-       This man page is from _n_o_w_e_b version 2.11.
+       This man page is from _n_o_w_e_b version 2.11b.
 
 AAUUTTHHOORR
        Norman  Ramsey,  Harvard  University.   Internet  address  nnrr@@eeeeccss..hhaarr--

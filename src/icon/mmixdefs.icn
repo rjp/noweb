@@ -24,8 +24,8 @@ procedure prepass(name, arg)
 end
 #line 27 "mmixdefs.nw"
 procedure rcsinfo () 
-  return "$Id: mmixdefs.nw,v 1.10 2006/04/02 16:45:18 nr Exp nr $" ||
-         "$Name: v2_11 $"
+  return "$Id: mmixdefs.nw,v 1.12 2006/06/12 21:03:54 nr Exp nr $" ||
+         "$Name: v2_11b $"
 end
 #line 1 "defns.nw"
 procedure go()
@@ -66,6 +66,6 @@ procedure writedefn(defn, locl)
 end
 #line 35 "defns.nw"
 procedure rcsinfo_too () 
-  return "$Id: defns.nw,v 1.13 2006/04/02 16:45:18 nr Exp nr $" ||
-         "$Name: v2_11 $"
+  return "$Id: defns.nw,v 1.15 2006/06/12 21:03:54 nr Exp nr $" ||
+         "$Name: v2_11b $"
 end

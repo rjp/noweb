@@ -54,6 +54,8 @@ FAQ.html: $(HOME)/www/noweb/FAQ.html
 	chmod -w FAQ.html
 
 install: install-code install-man install-tex install-elisp
+uninstall: uninstall-code uninstall-man uninstall-tex uninstall-elisp
+	-rmdir $(BIN) $(LIB) 2>/dev/null
 
 install-shell:
 	-mkdir $(BIN) $(LIB) 2>/dev/null
@@ -81,12 +83,31 @@ install-shell:
 	chmod +x $(LIB)/toroff
 	cp shell/tmac.w $(LIB)
 
+uninstall-shell:
+	rm -f $(BIN)/noweb
+	rm -f $(BIN)/notangle
+	rm -f $(BIN)/$(WEAVE)
+	rm -f $(BIN)/nountangle
+	rm -f $(BIN)/nodefs
+	rm -f $(BIN)/noroots
+	rm -f $(BIN)/nuweb2noweb
+	rm -f $(BIN)/cpif
+	rm -f $(BIN)/htmltoc
+	rm -f $(BIN)/noroff
+	rm -f $(LIB)/toroff
+	rm $(LIB)/tmac.w
+
 install-code: install-shell
 	-mkdir $(BIN) $(LIB) 2>/dev/null
 	strip c/nt c/markup c/mnt c/finduses
 	cp c/nt c/markup c/mnt c/finduses $(LIB)
 	cd $(LIBSRC); make ICONT=$(ICONT) ICONC=$(ICONC) LIB=$(LIB) BIN=$(BIN) install
 	cd lib; make LIB=$(LIB) install
+
+uninstall-code: uninstall-shell
+	rm $(LIB)/nt $(LIB)/markup $(LIB)/mnt $(LIB)/finduses 
+	cd $(LIBSRC); make ICONT=$(ICONT) ICONC=$(ICONC) LIB=$(LIB) BIN=$(BIN) uninstall
+	cd lib; make LIB=$(LIB) uninstall
 install-man:
 	-mkdir $(MAN) $(MANDIR) $(MAN7DIR) 2>/dev/null
 	sed -e "s@|LIBDIR|@$(LIBNAME)@" -e "s@|TEXINPUTS|@$(TEXNAME)@" xdoc/cpif.1 > $(MANDIR)/cpif.$(MANEXT)
@@ -105,6 +126,21 @@ install-man:
 	(cd $(MANDIR); ln notangle.$(MANEXT) noweave.$(MANEXT))
 	rm -f $(MANDIR)/nountangle.$(MANEXT)
 	(cd $(MANDIR); ln notangle.$(MANEXT) nountangle.$(MANEXT))
+uninstall-man:
+	rm -f $(MANDIR)/cpif.$(MANEXT)
+	rm -f $(MANDIR)/nodefs.$(MANEXT)
+	rm -f $(MANDIR)/noroots.$(MANEXT)
+	rm -f $(MANDIR)/noweb.$(MANEXT)
+	rm -f $(MANDIR)/noindex.$(MANEXT)
+	rm -f $(MANDIR)/nuweb2noweb.$(MANEXT)
+	rm -f $(MANDIR)/notangle.$(MANEXT)
+	rm -f $(MANDIR)/noroff.$(MANEXT)
+	rm -f $(MANDIR)/sl2h.$(MANEXT)
+	rm -f $(MANDIR)/htmltoc.$(MANEXT)
+	rm -f $(MAN7DIR)/nowebstyle.$(MAN7EXT)
+	rm -f $(MAN7DIR)/nowebfilters.$(MAN7EXT)
+	rm -f $(MANDIR)/noweave.$(MANEXT)
+	rm -f $(MANDIR)/nountangle.$(MANEXT)
 install-gzipped-man:
 	-mkdir $(MAN) $(MANDIR) $(MAN7DIR) 2>/dev/null
 	sed -e "s@|LIBDIR|@$(LIBNAME)@" -e "s@|TEXINPUTS|@$(TEXNAME)@" xdoc/cpif.1  | gzip -9 > $(MANDIR)/cpif.$(MANEXT).gz
@@ -147,10 +183,15 @@ install-tex:
 	cp tex/nwmac.tex tex/noweb.sty $(TEXINPUTS)
 	-texhash || echo "Program texhash not found or failed"
 
+uninstall-tex:
+	rm -f $(TEXINPUTS)/nwmac.tex $(TEXINPUTS)/noweb.sty
+
 install-elisp:
 	-mkdir $(ELISP) 2>/dev/null
 	cp elisp/noweb-mode.el $(ELISP)
 
+uninstall-elisp:
+	rm -f $(ELISP)/noweb-mode.el
 checkin:
 	for i in lib tex xdoc; do (cd $$i; make "CINAME=$(CINAME)" "CIMSG=$(CIMSG)" checkin); done
 	for i in c icon awk; do (cd $$i; ci -l $(CINAME) $(CIMSG) *.nw Makefile); done

@@ -104,10 +104,11 @@ The names of
 code chunks may appear within quoted code unless that quoted code is itself
 part of the name of a code chunk.
 .PP
-If double left and right angle brackets are not paired, they are
-treated as literal \fB<<\fP and \fB>>\fP.  Users can force any
-such brackets, even paired brackets, to be treated as literal by
-using a preceding at sign (e.g. \fB@<<\fP).
+In code, noweb treats unpaired
+double left or right angle brackets as literal \fB<<\fP and \fB>>\fP.  
+To force any
+such brackets, even paired brackets or brackets in documentation, 
+to be treated as literal, use a preceding at sign (e.g. \fB@<<\fP).
 .PP
 Some programming or formatting languages may require a single \fB@\fP sign in 
 the first column. 
@@ -631,7 +632,7 @@ has too many options, and this man page is too long.
 .SH VERSION
 This man page is from 
 .I noweb
-version 2.11.
+version 2.11b.
 .SH AUTHOR
 Norman Ramsey, Harvard University.
 Internet address \fBnr@eecs.harvard.edu\fP.

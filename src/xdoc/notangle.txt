@@ -58,10 +58,10 @@ FFOORRMMAATT OOFF NNOOWWEEBB FFIILLEESS
        chunks may appear within quoted code unless that quoted code is  itself
        part of the name of a code chunk.
 
-       If  double  left  and  right  angle  brackets  are not paired, they are
-       treated as literal <<<< and >>>>.  Users can force any such brackets,  even
-       paired  brackets, to be treated as literal by using a preceding at sign
-       (e.g. @@<<<<).
+       In  code,  noweb treats unpaired double left or right angle brackets as
+       literal <<<< and >>>>.  To force any such brackets, even paired brackets or
+       brackets in documentation, to be treated as literal, use a preceding at
+       sign (e.g. @@<<<<).
 
        Some programming or formatting languages may require a single @@ sign in
        the  first  column.   Noweb  users may achieve this effect by putting a
@@ -348,7 +348,7 @@ BBUUGGSS
        _n_o_w_e_a_v_e has too many options, and this man page is too long.
 
 VVEERRSSIIOONN
-       This man page is from _n_o_w_e_b version 2.11.
+       This man page is from _n_o_w_e_b version 2.11b.
 
 AAUUTTHHOORR
        Norman  Ramsey,  Harvard  University.   Internet  address  nnrr@@eeeeccss..hhaarr--

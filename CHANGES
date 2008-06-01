@@ -1,3 +1,13 @@
+CHANGES FOR VERSION 2.11b - released 12 Jun 2006
+Make noroff use -mm by default (Debian 218050)
+Fixed flagrant errors in noweave -x -troff (but bad formatting remains)
+
+CHANGES FOR VERSION 2.11a - released 20 May 2006
+Clarify instructions for $PATH and $MANPATH (B Pierce)
+Create examples/Makefile.awk (B Pierce)
+Clarify documentation: unescaped << and >> not OK in docs chunk (R Hemmecke)
+Add -lua option to docs2comments filter
+
 CHANGES FOR VERSION 2.11 - released 6 April 2006
 Braces did not render correctly in [[<<$\{a_i\}$>>]] (Albert Reiner)
 From Kevin Quick, Windows hints and a new NOTANGLE.BAT

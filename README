@@ -1,4 +1,4 @@
-This is version 2.11 of ``noweb'', a simple, extensible literate-
+This is version 2.11b of ``noweb'', a simple, extensible literate-
 programming tool.  noweb is available by anonymous ftp from
 ftp.eecs.harvard.edu:pub/nr/noweb and by HTTP from
 http://www.eecs.harvard.edu/nr/noweb/dist.  The ftp site is mirrored
@@ -10,10 +10,11 @@ To build noweb, change to the `src' directory and follow the
 instructions in the file INSTALL.
 
 
-WHAT'S NEW IN VERSION 2.11
+WHAT'S NEW IN VERSION 2.11b
 
-Version 2.11 fixes a surprising bug in noweb's parser and provides a
-dozen or so small improvements.
+Version 2.11b is a bugfix version: Fixed the noroff script to work
+with current GNU roff, and fixed noweave -x -troff at least to the
+extent that noroff doesn't choke on its output.
 
 
 INTRODUCTION --- WHAT IS NOWEB, ANYWAY?

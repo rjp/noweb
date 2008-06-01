@@ -20,7 +20,7 @@ SSEEEE AALLSSOO
        _n_o_t_a_n_g_l_e(1)
 
 VVEERRSSIIOONN
-       This man page is from _n_o_w_e_b version 2.11.
+       This man page is from _n_o_w_e_b version 2.11b.
 
 AAUUTTHHOORR
        Norman  Ramsey,  Harvard  University.   Internet  address  nnrr@@eeeeccss..hhaarr--

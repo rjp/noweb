@@ -108,10 +108,11 @@ If quoted code ends with three or more square brackets,
 chooses the rightmost pair, so that, for example, \fB[[a[i]]]\fR is
 parsed correctly.
 .PP
-If double left and right angle brackets are not paired, they are
-treated as literal \fB<<\fP and \fB>>\fP.  Users can force any
-such brackets, even paired brackets, to be treated as literal by
-using a preceding at sign (e.g. \fB@<<\fP).
+In code, noweb treats unpaired
+double left or right angle brackets as literal \fB<<\fP and \fB>>\fP.  
+To force any
+such brackets, even paired brackets or brackets in documentation, 
+to be treated as literal, use a preceding at sign (e.g. \fB@<<\fP).
 .SH OPTIONS
 .TP
 .B \-t
@@ -211,7 +212,7 @@ Norman Ramsey,
 .SH VERSION
 This man page is from 
 .I noweb
-version 2.11.
+version 2.11b.
 .SH AUTHOR
 Norman Ramsey, Harvard University.
 Internet address \fBnr@eecs.harvard.edu\fP.

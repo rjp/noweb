@@ -10,10 +10,16 @@ program.  noweb itself is not a good example of literate programming.
 It is harder than most people realize to write a truly literate
 program, and noweb wasn't worth the effort.
 
+If you have installed noweb with LIBSRC=awk instead of LIBSRC=icon,
+you need to use Makefile.awk instead of Makefile.
+
 The files are:
 
   Makefile		Shows some sample default rules for use
 			in a Makefile.  Try `make tree.tex tree.dvi'.
+  Makefile.awk		Like Makefile but doesn't require Icon.
+                        None of the HTML examples will be readable
+			without Icon.
   breakmodel.nw		A formal model of breakpoints using the
 			Promela modeling language.
   dag.nw		Fragment of an Icon program that compiles

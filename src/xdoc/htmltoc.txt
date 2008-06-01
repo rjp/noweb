@@ -20,11 +20,15 @@ DDEESSCCRRIIPPTTIIOONN
        This  can  be changed by using a command-line option, e.g., --112233445566778899PP
        ttoo iinncclluuddee aallll ppoossssiibbllee hheeaaddeerrss..
 
+BBUUGGSS
+       _h_t_m_l_t_o_c can't cope with a header that is split across  multiple  lines,
+       even though this is legal HTML.
+
 SSEEEE AALLSSOO
        _n_o_w_e_b_f_i_l_t_e_r_s(7), _s_l_2_h(1)
 
 VVEERRSSIIOONN
-       This man page is from _n_o_w_e_b version 2.11.
+       This man page is from _n_o_w_e_b version 2.11b.
 
 AAUUTTHHOORR
        Norman  Ramsey,  Harvard  University.   Internet  address  nnrr@@eeeeccss..hhaarr--

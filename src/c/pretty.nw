@@ -235,8 +235,8 @@ main (int argc, char *argv[]) {
 @
 \subsection{Boilerplate}
 <<*>>=
-static char rcsid[] = "$Id: pretty.nw,v 1.14 2006/04/02 16:45:17 nr Exp nr $";
-static char rcsname[] = "$Name: v2_11 $";
+static char rcsid[] = "$Id: pretty.nw,v 1.16 2006/06/12 21:03:53 nr Exp nr $";
+static char rcsname[] = "$Name: v2_11b $";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -26,8 +26,9 @@ procedure main(args)
 		  }
       "-pascal" : { format := wrap("{ ", " }"); subst := tr("{}", "--") }
       "-f77" :  format := wrap("C ")
-      "-f90" :    format := wrap("! ")
-      "-tex" :    format := wrap("%% ")
+      "-f90" :  format := wrap("! ")
+      "-tex" :  format := wrap("%% ")
+      "-lua" :  format := wrap("-- ")
 
       "-all" :  allchunks := 1
       "-one" :  allchunks := &null
@@ -43,7 +44,7 @@ procedure main(args)
 	  }
     }
   
-#line 95 "docs2comments.nw"
+#line 96 "docs2comments.nw"
 chunks := []
 while line := read() do
   line ?
@@ -80,13 +81,14 @@ while line := read() do
         preceding_defn := holding
         holding := []
     } else {
+        if match("@xref ") & (\holding)[-1] == "" then pull(holding)
         put(\holding, line)
     }
 drain(put(chunks, docs([])))
-#line 52 "docs2comments.nw"
+#line 53 "docs2comments.nw"
   return
 end
-#line 56 "docs2comments.nw"
+#line 57 "docs2comments.nw"
 procedure insert_blanks(s, bad)
   s ? {
     r := ""
@@ -98,7 +100,7 @@ procedure insert_blanks(s, bad)
     return r || tab(0)
   }
 end
-#line 69 "docs2comments.nw"
+#line 70 "docs2comments.nw"
 procedure comment(s)
   case type(subst) of {
     "breakup" : every s := insert_blanks(s, !subst.strings)
@@ -113,7 +115,7 @@ procedure comment(s)
     return format.l || s || format.r
   }    
 end
-#line 87 "docs2comments.nw"
+#line 88 "docs2comments.nw"
 procedure grab(s, holding)
   return (\holding)[-1] := holding[-1] || s
 end
@@ -121,12 +123,22 @@ end
 record docs(lines)
 record code(preceding, defn, lines)
 
-#line 136 "docs2comments.nw"
+#line 138 "docs2comments.nw"
 procedure emit_as_comments(c)
   type(c) == "docs" | runerr(1, "Unexpected code chunk")
-  every write("@text ", comment(!\c.lines), "\n@nl")
+  every write("@text ", comment(trailing_nonblank(\c.lines)), "\n@nl")
   return
 end
+
+procedure trailing_nonblank(l)
+  local suspended
+  every s := !l do
+    if \suspended | *s > 0 then {
+      suspended := 1
+      suspend s
+    }
+end
+        
 
 procedure drain(chunks)
   static n
@@ -139,6 +151,7 @@ procedure drain(chunks)
       emit_as_comments(chunks[i])
     write("@text ", comment("<" || c.defn || ">="), "\n@nl")
     write("@text ", \lastline, "\n@nl")
+    copyxreflines(\c.lines)
     bad := &null
     (bad := get(\c.lines)) == "@nl" | 
       { write(&errout, "expected newline after definition; got ", image(bad));
@@ -156,4 +169,12 @@ procedure drain(chunks)
     write("@end code ", n)
   }
   return chunks
+end
+
+procedure copyxreflines(l)
+  while match("@xref ", l[1]) do { 
+    #write(&errout, "COPYING ", image(l[1]))
+    get(l) #write(get(l))
+  }
+  return
 end

@@ -133,8 +133,8 @@ procedure look_for_static(stat, tok)
 end
 #line 127 "cdefs.nw"
 procedure rcsinfo () 
-  return "$Id: cdefs.nw,v 1.14 2006/04/02 16:45:18 nr Exp nr $" ||
-         "$Name: v2_11 $"
+  return "$Id: cdefs.nw,v 1.16 2006/06/12 21:03:54 nr Exp nr $" ||
+         "$Name: v2_11b $"
 end
 #line 1 "defns.nw"
 procedure go()
@@ -175,6 +175,6 @@ procedure writedefn(defn, locl)
 end
 #line 35 "defns.nw"
 procedure rcsinfo_too () 
-  return "$Id: defns.nw,v 1.13 2006/04/02 16:45:18 nr Exp nr $" ||
-         "$Name: v2_11 $"
+  return "$Id: defns.nw,v 1.15 2006/06/12 21:03:54 nr Exp nr $" ||
+         "$Name: v2_11b $"
 end

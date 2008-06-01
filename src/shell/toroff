@@ -46,7 +46,7 @@ cat > $awkfile << 'EOF'
 /^@xref beginuses/     { if (code) { code = 0; printf ".STARTXREF\n" }; printf ".XREFUSES\n" }
 /^@xref notused/       { if (code) { code = 0; printf ".STARTXREF\n" }; printf ".XREFNOTUSED\n" }
 /^@xref (def|use)item/ { printf ".ADDLIST %s\n", tag($3) }
-/^@xref end(def|use)s/ { printf ".PRINTLIST\n" }
+/^@xref end(def|use)s/ { printf ".PRINTLIST\n"; code = 1 }
 /^@index begindefs/ && !noindex { if (code) { code = 0; printf ".STARTXREF\n" }; printf ".INDEXDEF\n" }
 /^@index isused/ && !noindex {
     if (tag($3) != lastxrefref) printf ".ADDLIST %s\n", tag($3) }

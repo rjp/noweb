@@ -4,7 +4,7 @@
 # Don't edit this file; you should be editing the Makefiles in the
 # src and contrib directories.
 
-VERSION=2.11
+VERSION=2.11b
 SHELL=/bin/sh
 CINAME=-Nv`echo $(VERSION) | tr . _`
 CIMSG=-f -m'standard checkin preparing to export version $(VERSION)'
