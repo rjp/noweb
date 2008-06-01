@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{knuth:literate}
+Donald~E. Knuth.
+\newblock Literate programming.
+\newblock {\em The Computer Journal}, 27(2):97--111, 1984.
+
+\bibitem{dahl:structured}
+Ole-Johan Dahl, Edsger~W. Dijkstra, and C.~A.~R. Hoare.
+\newblock {\em Structured Programming}.
+\newblock Academic Press, London and New York, 1972.
+
+\end{thebibliography}

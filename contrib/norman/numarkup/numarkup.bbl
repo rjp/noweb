@@ -1,0 +1,58 @@
+\begin{thebibliography}{10}
+
+\bibitem{aho:75}
+Alfred~V. Aho and Margaret~J. Corasick.
+\newblock Efficient string matching: An aid to bibliographic search.
+\newblock {\em Communications of the ACM}, 18(6):333--340, June 1975.
+
+\bibitem{hanson:90}
+David~R. Hanson.
+\newblock Fast allocation and deallocation of memory based on object lifetimes.
+\newblock {\em Software -- Practice and Experience}, 20(1):5--12, January 1990.
+
+\bibitem{knuth:84}
+Donald~E. Knuth.
+\newblock Literate programming.
+\newblock {\em The Computer Journal}, 27(2):97--111, May 1984.
+
+\bibitem{metafont:program}
+Donald~E. Knuth.
+\newblock {\em {{\small\sf METAFONT:}} The Program}.
+\newblock Computers \& Typesetting. Addison-Wesley, 1986.
+
+\bibitem{tex:program}
+Donald~E. Knuth.
+\newblock {\em {{\TeX}}: The Program}.
+\newblock Computers \& Typesetting. Addison-Wesley, 1986.
+
+\bibitem{texbook}
+Donald~E. Knuth.
+\newblock {\em The {{\TeX}}book}.
+\newblock Computers \& Typesetting. Addison-Wesley, 1986.
+
+\bibitem{latex}
+Leslie Lamport.
+\newblock {\em {{\LaTeX:}} A Document Preparation System}.
+\newblock Addison-Wesley, 1986.
+
+\bibitem{levy:90}
+Silvio Levy and Donald~E. Knuth.
+\newblock {{\tt CWEB}} user manual: The {{\small CWEB}} system of structured
+  documentation.
+\newblock Technical Report {\small STAN}-{\small CS}-83-977, Stanford
+  University, October 1990.
+\newblock Available for anonymous ftp from {\tt labrea.stanford.edu} in
+  directory {\tt pub/cweb}.
+
+\bibitem{noweb}
+Norman Ramsey.
+\newblock Literate-programming tools need not be complex.
+\newblock Submitted to IEEE Software, August 1992.
+
+\bibitem{funnelweb}
+Ross~N. Williams.
+\newblock {FunnelWeb} user's manual, May 1992.
+\newblock Available for anonymous ftp from {\tt sirius.itd.adelaide.edu.au} in
+  directory {\tt pub/funnelweb}.
+
+\end{thebibliography}

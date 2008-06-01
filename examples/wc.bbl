@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{guntermann:cweb}
+Klaus Guntermann and Joachim Schrod.
+\newblock {{\tt WEB}} adapted to {C}.
+\newblock {\em {TUG}boat}, 7(3):134--137, October 1986.
+
+\bibitem{knuth:literate:book}
+Donald~E. Knuth.
+\newblock {\em Literate Programming}, volume~27 of {\em Center for the Study of
+  Language and Information Lecture Notes}.
+\newblock Leland Stanford Junior University, Stanford, California, 1992.
+
+\end{thebibliography}
